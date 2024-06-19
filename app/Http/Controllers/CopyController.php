@@ -1,65 +1,74 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Book; 
+use App\Models\Shelf;
 use App\Models\Copy;
 use Illuminate\Http\Request;
 
 class CopyController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $copies = Copy::with('book', 'shelf')->get();
+        return view('copies.index', compact('copies'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $books = Book::all();
+        $shelves = Shelf::all();
+        return view('copies.create', compact('books', 'shelves'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'copy_num' => 'required|integer',
+            'book_id' => 'required|exists:books,id',
+            'shelf_id' => 'required|exists:shelves,id',
+        ]);
+
+        $copy = new Copy();
+        $copy->copy_num = $request->copy_num;
+        $copy->book_id = $request->book_id;
+        $copy->shelf_id = $request->shelf_id;
+        $copy->save();
+
+        return redirect()->route('copies.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Copy $copy)
     {
-        //
+        return view('copies.show', compact('copy'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Copy $copy)
     {
-        //
+        $books = Book::all();
+        $shelves = Shelf::all();
+        return view('copies.edit', compact('copy', 'books', 'shelves'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Copy $copy)
     {
-        //
+        $request->validate([
+            'copy_num' => 'required|integer',
+            'book_id' => 'required|exists:books,id',
+            'shelf_id' => 'required|exists:shelves,id',
+        ]);
+
+        $copy->copy_num = $request->copy_num;
+        $copy->book_id = $request->book_id;
+        $copy->shelf_id = $request->shelf_id;
+        $copy->save();
+
+        return redirect()->route('copies.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Copy $copy)
     {
-        //
+        $copy->delete();
+        return redirect()->route('copies.index');
     }
 }
