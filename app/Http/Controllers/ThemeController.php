@@ -36,20 +36,19 @@ class ThemeController extends Controller
         //
         $validator = Validator::make($request->all(),[
             'name' => 'required|string|min:5|max:30',
-            'codeColor' => 'require|string'
+            'codeColor' => 'required|string'
         ]);
 
-        /*Theme::create([
-            'name' => $request->name,
-            'codeColor' => $request->codeColor,
-            'user_id' => $request->user_id
-        ]);*/
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+       
         $theme = new Theme();
         $theme->name = $request->name;
         $theme->codeColor = $request->codeColor;
         $theme->user_id = Auth::id(); // Asignar ID del usuario autenticado
         $theme->save();
-        return response('Tema creado satisfactoriamente');
+        return redirect()->route('themes.index');
     }
 
     /**
