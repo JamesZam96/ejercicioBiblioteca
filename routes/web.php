@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,7 +16,7 @@ Route::middleware('web')->group(function(){
         Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
         Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-        Route::post('/login', [AuthController::class, 'login'])->name('login'); 
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
     });
 
 
@@ -31,4 +32,10 @@ Route::middleware('web')->group(function(){
 
     Route::post('/themes', [ThemeController::class, 'store'])->middleware('auth')->name('themes.store');
     Route::get('/themes', [ThemeController::class, 'index'])->middleware('auth')->name('themes.index');
+
+
+    Route::get('authors', [AuthorController::class, 'index'])->name('authors.index');
+    Route::get('authors/create', [AuthorController::class, 'create'])->name('authors.create');
+    Route::post('authors', [AuthorController::class, 'store'])->name('authors.store');
+
 });

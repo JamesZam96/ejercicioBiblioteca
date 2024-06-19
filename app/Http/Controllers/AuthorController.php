@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -12,7 +13,8 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = Auth::user()->authors;
+        return view('authors.index',compact('authors'));
     }
 
     /**
@@ -20,7 +22,9 @@ class AuthorController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all();
+
+        return view('authors.create', compact('users'));
     }
 
     /**
@@ -28,7 +32,20 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:45',
+            'biography' => 'required|string|max:45',
+            'user_id' => 'required|exists:users,id',
+
+        ]);
+
+        $author = new Author();
+        $author->name = $request->name;
+        $author->biography= $request->biography;
+        $author->user_id = $request->user_id;
+        $author->save();
+
+        return response('Autor Creado');
     }
 
     /**
