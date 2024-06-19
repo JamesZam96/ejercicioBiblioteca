@@ -9,7 +9,8 @@ class Author extends Model
 {
     use HasFactory;
 
-    public function users(){
+    protected $fillable = ['name'];
+    public function user(){
         return $this->belongsTo(User::class);
     }
 

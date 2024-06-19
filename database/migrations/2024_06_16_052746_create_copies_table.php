@@ -16,9 +16,11 @@ return new class extends Migration
             $table->bigInteger('numCopy');
             $table->unsignedBigInteger('book_id');
             $table->unsignedBigInteger('shelf_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('book_id')->references('id')->on('books');
             $table->foreign('shelf_id')->references('id')->on('shelves');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
