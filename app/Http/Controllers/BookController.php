@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\Author;
 use App\Models\Theme;
@@ -10,7 +11,8 @@ class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::with('author', 'theme')->get();
+        $books = Auth::user()->books()->with(['authors', 'themes'])->get();
+        
         return view('books.index', compact('books'));
     }
 
@@ -35,6 +37,7 @@ class BookController extends Controller
         $book->date = $request->date;
         $book->author_id = $request->author_id;
         $book->theme_id = $request->theme_id;
+        $book->user_id = Auth::id();
         $book->save();
 
         return redirect()->route('books.index');

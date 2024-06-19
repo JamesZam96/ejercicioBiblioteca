@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
 <div class="container">
         <h1>Books</h1>
         <a href="{{ route('books.create') }}" class="btn btn-primary">Add New Book</a>
@@ -13,12 +14,13 @@
                 </tr>
             </thead>
             <tbody>
+            @if($books && count($books) > 0)
                 @foreach($books as $book)
                     <tr>
                         <td>{{ $book->name }}</td>
                         <td>{{ $book->date }}</td>
-                        <td>{{ $book->author->name }}</td>
-                        <td>{{ $book->theme->name }}</td>
+                        <td>{{ $book->authors ? $book->authors->name : 'N/A' }}</td>
+                        <td>{{ $book->themes ? $book->themes->name : 'N/A' }}</td>
                         <td>
                             <a href="{{ route('books.show', $book) }}" class="btn btn-info">View</a>
                             <a href="{{ route('books.edit', $book) }}" class="btn btn-warning">Edit</a>
@@ -30,6 +32,12 @@
                         </td>
                     </tr>
                 @endforeach
+                @else
+            <tr>
+        <td colspan="5">No books available.</td>
+        </tr>
+                @endif
             </tbody>
         </table>
     </div>
+    @endsection

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\Author;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,7 +42,7 @@ class AuthorController extends Controller
         $author = new Author();
         $author->name = $request->name;
         $author->biography= $request->biography;
-        $author->user_id = $request->user_id;
+        $author->user_id = Auth::id();
         $author->save();
 
         return response('Autor Creado');

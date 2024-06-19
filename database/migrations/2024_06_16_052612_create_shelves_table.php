@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('code');
             $table->unsignedBigInteger('theme_id');
             $table->unsignedBigInteger('library_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('theme_id')->references('id')->on('themes');
             $table->foreign('library_id')->references('id')->on('libraries');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

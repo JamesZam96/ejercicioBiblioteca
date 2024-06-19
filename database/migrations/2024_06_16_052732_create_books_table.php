@@ -17,9 +17,11 @@ return new class extends Migration
             $table->date('date');
             $table->unsignedBigInteger('theme_id');
             $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('theme_id')->references('id')->on('themes');
             $table->foreign('author_id')->references('id')->on('authors');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
