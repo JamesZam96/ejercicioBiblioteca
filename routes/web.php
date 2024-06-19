@@ -2,6 +2,7 @@
 use App\Http\Controllers\CopyController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ThemeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -25,7 +26,7 @@ Route::middleware('web')->group(function(){
         return view('dashboard');
     })->middleware('auth')->name('dashboard');
 
-});
+
 
 Route::get('books', [BookController::class, 'index'])->name('books.index');
 Route::get('books/create', [BookController::class, 'create'])->name('books.create');
@@ -42,3 +43,11 @@ Route::get('copies/{copy}', [CopyController::class, 'show'])->name('copies.show'
 Route::get('copies/{copy}/edit', [CopyController::class, 'edit'])->name('copies.edit');
 Route::put('copies/{copy}', [CopyController::class, 'update'])->name('copies.update');
 Route::delete('copies/{copy}', [CopyController::class, 'destroy'])->name('copies.destroy');
+    
+Route::get('/themes/create', function(){
+        return view('themes.create');
+    })->middleware('auth')->name('themes.create');
+
+    Route::post('/themes', [ThemeController::class, 'store'])->middleware('auth')->name('themes.store');
+    Route::get('/themes', [ThemeController::class, 'index'])->middleware('auth')->name('themes.index');
+});

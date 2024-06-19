@@ -9,6 +9,11 @@ class Theme extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'codeColor',
+    ];
+
     public function users(){
         return $this->belongsTo(User::class);
     }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Theme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ThemeController extends Controller
 {
@@ -13,6 +15,8 @@ class ThemeController extends Controller
     public function index()
     {
         //
+        $themes = Auth::user()->themes;
+        return view('themes.index',compact('themes'));
     }
 
     /**
@@ -21,6 +25,7 @@ class ThemeController extends Controller
     public function create()
     {
         //
+        return view('themes.create');
     }
 
     /**
@@ -29,6 +34,21 @@ class ThemeController extends Controller
     public function store(Request $request)
     {
         //
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|min:5|max:30',
+            'codeColor' => 'required|string'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+       
+        $theme = new Theme();
+        $theme->name = $request->name;
+        $theme->codeColor = $request->codeColor;
+        $theme->user_id = Auth::id(); // Asignar ID del usuario autenticado
+        $theme->save();
+        return redirect()->route('themes.index');
     }
 
     /**
@@ -37,6 +57,7 @@ class ThemeController extends Controller
     public function show(Theme $theme)
     {
         //
+        
     }
 
     /**
