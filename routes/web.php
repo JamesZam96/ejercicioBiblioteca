@@ -1,7 +1,9 @@
 <?php
-
+use App\Http\Controllers\CopyController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\AuthorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -15,7 +17,7 @@ Route::middleware('web')->group(function(){
         Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
         Route::post('/register', [AuthController::class, 'register'])->name('register');
         Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
-        Route::post('/login', [AuthController::class, 'login'])->name('login'); 
+        Route::post('/login', [AuthController::class, 'login'])->name('login');
     });
 
 
@@ -25,10 +27,34 @@ Route::middleware('web')->group(function(){
         return view('dashboard');
     })->middleware('auth')->name('dashboard');
 
-    Route::get('/themes/create', function(){
+
+
+Route::get('books', [BookController::class, 'index'])->name('books.index');
+Route::get('books/create', [BookController::class, 'create'])->name('books.create');
+Route::post('books', [BookController::class, 'store'])->name('books.store');
+Route::get('books/{book}', [BookController::class, 'show'])->name('books.show');
+Route::get('books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+Route::put('books/{book}', [BookController::class, 'update'])->name('books.update');
+Route::delete('books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+
+Route::get('copies', [CopyController::class, 'index'])->name('copies.index');
+Route::get('copies/create', [CopyController::class, 'create'])->name('copies.create');
+Route::post('copies', [CopyController::class, 'store'])->name('copies.store');
+Route::get('copies/{copy}', [CopyController::class, 'show'])->name('copies.show');
+Route::get('copies/{copy}/edit', [CopyController::class, 'edit'])->name('copies.edit');
+Route::put('copies/{copy}', [CopyController::class, 'update'])->name('copies.update');
+Route::delete('copies/{copy}', [CopyController::class, 'destroy'])->name('copies.destroy');
+
+Route::get('/themes/create', function(){
         return view('themes.create');
     })->middleware('auth')->name('themes.create');
 
     Route::post('/themes', [ThemeController::class, 'store'])->middleware('auth')->name('themes.store');
     Route::get('/themes', [ThemeController::class, 'index'])->middleware('auth')->name('themes.index');
+
+
+    Route::get('authors', [AuthorController::class, 'index'])->name('authors.index');
+    Route::get('authors/create', [AuthorController::class, 'create'])->name('authors.create');
+    Route::post('authors', [AuthorController::class, 'store'])->name('authors.store');
+
 });
