@@ -28,15 +28,15 @@ class LibraryController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'nombre' => 'required|string|min:5|max:30',
-        'ubicacion' => 'required|string|min:20|max:125',
-        'descripcion' => 'nullable|string|max:500',
+        'name' => 'required|string|min:5|max:30',
+        'location' => 'required|string|min:20|max:125',
+        'description' => 'nullable|string|max:500',
     ]);
 
     $library = Library::create([
-        'name' => $request->nombre,
-        'location' => $request->ubicacion,
-        'description' => $request->descripcion,
+        'name' => $request->name,
+        'location' => $request->location,
+        'description' => $request->description,
         'user_id' => Auth::id(),
     ]);
 

@@ -15,16 +15,16 @@
     <form action="{{ route('libraries.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" class="form-control" required minlength="5" maxlength="30" value="{{ old('nombre') }}">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="name" class="form-control" required minlength="5" maxlength="30" value="{{ old('name') }}">
         </div>
         <div class="form-group">
-            <label for="ubicacion">Ubicación:</label>
-            <input type="text" id="ubicacion" name="ubicacion" class="form-control" required minlength="20" maxlength="125" value="{{ old('ubicacion') }}">
+            <label for="location">Ubicación:</label>
+            <input type="text" id="location" name="location" class="form-control" required minlength="20" maxlength="125" value="{{ old('location') }}">
         </div>
         <div class="form-group">
-            <label for="descripcion">Descripción:</label>
-            <textarea id="descripcion" name="descripcion" class="form-control" maxlength="500">{{ old('descripcion') }}</textarea>
+            <label for="description">Descripción:</label>
+            <textarea id="description" name="description" class="form-control" maxlength="500">{{ old('description') }}</textarea>
         </div>
         <button type="submit" class="btn btn-primary">Crear Biblioteca</button>
     </form>
