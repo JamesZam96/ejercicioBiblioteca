@@ -13,7 +13,7 @@ class Copy extends Model
         return $this->belongsTo(Book::class);
     }
 
-    public function shelves(){
+    public function shelf(){
         return $this->belongsTo(Shelf::class);
     }
 }

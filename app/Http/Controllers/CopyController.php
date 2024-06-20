@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Models\Shelf;
 use App\Models\Copy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CopyController extends Controller
 {
@@ -26,7 +27,7 @@ class CopyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'copy_num' => 'required|integer',
+            'numCopy' => 'required|integer',
             'book_id' => 'required|exists:books,id',
             'shelf_id' => 'required|exists:shelves,id',
         ]);
@@ -35,6 +36,7 @@ class CopyController extends Controller
         $copy->numCopy = $request->numCopy;
         $copy->book_id = $request->book_id;
         $copy->shelf_id = $request->shelf_id;
+        $copy->user_id = Auth::id();
         $copy->save();
 
         return redirect()->route('dashboard')->with('success', 'Copia creada exitosamente.');

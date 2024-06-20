@@ -19,7 +19,7 @@ class ShelfController extends Controller
     {
         // Validar la solicitud para la creación de la estantería
         $request->validate([
-            'codigo' => 'required|string|max:10',
+            'code' => 'required|string|max:10',
         ]);
 
         // Crear una nueva estantería

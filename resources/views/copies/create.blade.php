@@ -13,7 +13,7 @@
             <label for="book_id">Libro</label>
             <select class="form-control" id="book_id" name="book_id" required>
                 @foreach($books as $book)
-                    <option value="{{ $book->id }}" {{ isset($book_id) && $book_id == $book->id ? 'selected' : '' }}>
+                    <option value="{{ $book->id }}">
                         {{ $book->name }}
                     </option>
                 @endforeach
@@ -23,7 +23,7 @@
             <label for="shelf_id">Estanteria</label>
             <select class="form-control" id="shelf_id" name="shelf_id" required>
                 @foreach($shelves as $shelf)
-                    <option value="{{ $shelf->id }}">{{ $shelf->name }}</option>
+                    <option value="{{ $shelf->id }}">{{ $shelf->code }}</option>
                 @endforeach
             </select>
         </div>

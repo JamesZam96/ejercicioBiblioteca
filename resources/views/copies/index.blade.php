@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
 <div class="container">
         <h1>Copies</h1>
         <a href="{{ route('copies.create') }}" class="btn btn-primary">Add New Copy</a>
@@ -14,7 +15,7 @@
             <tbody>
                 @foreach($copies as $copy)
                     <tr>
-                        <td>{{ $copy->copy_num }}</td>
+                        <td>{{ $copy->numCopy }}</td>
                         <td>{{ $copy->book->name }}</td>
                         <td>{{ $copy->shelf->name }}</td>
                         <td>
@@ -31,3 +32,4 @@
             </tbody>
         </table>
     </div>
+@endsection
