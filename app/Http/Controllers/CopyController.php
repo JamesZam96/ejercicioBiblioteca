@@ -15,12 +15,12 @@ class CopyController extends Controller
         return view('copies.index', compact('copies'));
     }
 
-    public function create(Request $request)
+    public function create()
     {
         $books = Book::all();
         $shelves = Shelf::all();
-        $book_id = $request->get('book_id');
-        return view('copies.create', compact('books', 'shelves', 'book_id'));
+        //$book_id = $request->get('book_id');
+        return view('copies.create', compact('books', 'shelves'));
     }
 
     public function store(Request $request)
@@ -32,7 +32,7 @@ class CopyController extends Controller
         ]);
 
         $copy = new Copy();
-        $copy->copy_num = $request->copy_num;
+        $copy->numCopy = $request->numCopy;
         $copy->book_id = $request->book_id;
         $copy->shelf_id = $request->shelf_id;
         $copy->save();

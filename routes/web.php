@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ThemeController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\LibraryController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShelfController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,9 @@ Route::middleware('web')->group(function () {
         Route::get('/books/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
         Route::put('/books/{book}', [BookController::class, 'update'])->name('books.update');
         Route::delete('/books/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+        
+        Route::get('books/search', [BookController::class, 'searchForm'])->name('books.search.form');
+        Route::post('books/search', [BookController::class, 'search'])->name('books.search');
 
         Route::get('/copies', [CopyController::class, 'index'])->name('copies.index');
         Route::get('/copies/create', [CopyController::class, 'create'])->name('copies.create');
@@ -79,6 +83,9 @@ Route::middleware('web')->group(function () {
     Route::get('authors/create', [AuthorController::class, 'create'])->name('authors.create');
     Route::post('authors', [AuthorController::class, 'store'])->name('authors.store');
     Route::get('authors', [AuthorController::class, 'index'])->name('authors.index');
+
+    
 });
+    
 
 });

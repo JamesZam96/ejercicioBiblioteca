@@ -6,8 +6,8 @@
     <form action="{{ route('copies.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="copy_num">Numero de copia</label>
-            <input type="number" class="form-control" id="copy_num" name="copy_num" required>
+            <label for="numCopy">Numero de copia</label>
+            <input type="number" class="form-control" id="numCopy" name="numCopy" required>
         </div>
         <div class="form-group">
             <label for="book_id">Libro</label>

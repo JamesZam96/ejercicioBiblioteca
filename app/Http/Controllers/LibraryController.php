@@ -40,7 +40,7 @@ class LibraryController extends Controller
         'user_id' => Auth::id(),
     ]);
 
-    return redirect()->route('libraries.index', ['library' => $library->id])->with('success', 'Biblioteca creada con éxito! Ahora crea un tema.');
+    return redirect()->route('themes.create', ['library' => $library->id])->with('success', 'Biblioteca creada con éxito! Ahora crea un tema.');
 }
 
 

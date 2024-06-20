@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\Author;
+use App\Models\LibraryBook;
 use App\Models\Theme;
 use Illuminate\Http\Request;
 
@@ -78,4 +79,21 @@ class BookController extends Controller
         $book->delete();
         return redirect()->route('books.index');
     }
+
+    public function searchForm()
+    {
+        return view('books.search');
+    }
+
+    // Método para manejar la búsqueda
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $results = LibraryBook::whereHas('book', function($q) use ($query) {
+            $q->where('name', 'like', '%' . $query . '%');
+        })->with(['book', 'library'])->get();
+
+        return view('books.search_results', compact('results', 'query'));
+    }
+
 }

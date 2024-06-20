@@ -24,7 +24,7 @@ class ShelfController extends Controller
 
         // Crear una nueva estantería
         $shelf = new Shelf([
-            'code' => $request->codigo,
+            'code' => $request->code,
             'theme_id' => $theme->id,
             'library_id' => $library->id,
             'user_id' => Auth::id(),
