@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shelves', function (Blueprint $table) {
+        Schema::create('libraries', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->unsignedBigInteger('theme_id');
-            $table->unsignedBigInteger('library_id');
+            $table->string('name', 30);
+            $table->string('location', 125)->default(0);
+            $table->string('description', 500)->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
-            $table->foreign('theme_id')->references('id')->on('themes');
-            $table->foreign('library_id')->references('id')->on('libraries');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shelves');
+        Schema::dropIfExists('libraries');
     }
 };

@@ -24,6 +24,8 @@
             <input type="text" class="form-control" id="codeColor" name="codeColor" required>
         </div>
         <button type="submit" class="btn btn-primary">Crear tema</button>
+
+
     </form>
     </div>
 @endsection

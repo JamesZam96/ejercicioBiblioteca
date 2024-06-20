@@ -22,4 +22,9 @@ class Theme extends Model
         return $this->hasOne(Book::class);
     }
 
+
+    public function shelves()
+    {
+        return $this->hasMany(Shelf::class);
+    }
 }

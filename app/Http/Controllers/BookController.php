@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\Author;
@@ -39,7 +40,7 @@ class BookController extends Controller
         $book->user_id = Auth::id();
         $book->save();
 
-        return redirect()->route('books.index');
+        return redirect()->route('copies.create', ['book_id' => $book->id])->with('success', 'Libro creado exitosamente. Ahora crea una copia.');
     }
 
     public function show(Book $book)

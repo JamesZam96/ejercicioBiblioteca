@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Book; 
+
+use App\Models\Book;
 use App\Models\Shelf;
 use App\Models\Copy;
 use Illuminate\Http\Request;
@@ -14,11 +15,12 @@ class CopyController extends Controller
         return view('copies.index', compact('copies'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $books = Book::all();
         $shelves = Shelf::all();
-        return view('copies.create', compact('books', 'shelves'));
+        $book_id = $request->get('book_id');
+        return view('copies.create', compact('books', 'shelves', 'book_id'));
     }
 
     public function store(Request $request)
@@ -35,7 +37,7 @@ class CopyController extends Controller
         $copy->shelf_id = $request->shelf_id;
         $copy->save();
 
-        return redirect()->route('copies.index');
+        return redirect()->route('dashboard')->with('success', 'Copia creada exitosamente.');
     }
 
     public function show(Copy $copy)
